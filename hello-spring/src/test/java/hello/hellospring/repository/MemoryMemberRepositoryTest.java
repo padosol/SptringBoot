@@ -5,7 +5,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 class MemoryMemberRepositoryTest {
     MemoryMemberRepository repository = new MemoryMemberRepository();
@@ -56,6 +59,34 @@ class MemoryMemberRepositoryTest {
         Assertions.assertThat(result.size()).isEqualTo(2);
     }
 
+
+    @Test
+    public void doubleColon(){
+        List<String> list = Arrays.asList("first", "second", "third", "forth");
+        list.forEach(item -> System.out.println(item));
+        System.out.println("----------");
+        list.forEach(System.out::println);
+
+        Function<String, Food> function1 = (String a) -> new Food(a);
+        Food food = function1.apply("pizza");
+        System.out.println(food.getName());
+
+        Function<String, Food> function2 = Food::new;
+        food = function2.apply("pasta");
+        System.out.println(food.getName());
+
+    }
+
+    public class Food{
+        private String name;
+        public Food(String name){
+            this.name = name;
+        }
+
+        public String getName(){
+            return this.name;
+        }
+    }
 
 
 }
